@@ -60,7 +60,7 @@ wsClient.addMessageListener(async function (event) {
                 let assistantCount = 0;
                 posts.forEach(threadPost => {
                     log.trace({msg: threadPost})
-                    if (threadPost.user_id === meId) {
+                    if (threadPost.user_id === meId || (event.data.channel_type === 'D' && event.data.mentions && JSON.parse(event.data.mentions).includes(meId))) {
                         chatmessages.push({role: "assistant", content: threadPost.props.originalMessage ?? threadPost.message})
                         assistantCount++
                     } else {
